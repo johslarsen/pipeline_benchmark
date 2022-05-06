@@ -29,3 +29,8 @@ void Input::into_ref(uint8_t filler, std::vector<uint8_t>& buffer) {
   buffer.resize(_buffer.size());
   std::memset(_buffer.data(), filler, _buffer.size());
 }
+
+immer::flex_vector<uint8_t>
+Input::into_flex(uint8_t filler) {
+  return immer::flex_vector<uint8_t>(_buffer.size(), filler);
+}

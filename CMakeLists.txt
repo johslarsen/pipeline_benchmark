@@ -8,6 +8,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_definitions(-Wall)
 
 add_library(pipeline_stages input.cpp append.cpp prepend.cpp join.cpp)
+target_include_directories(pipeline_stages PUBLIC external/immer)
 
 file(GLOB benchmarks bench*/*.cpp)
 foreach(benchmark ${benchmarks})

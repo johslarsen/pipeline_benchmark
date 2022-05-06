@@ -24,3 +24,8 @@ Prepend::into_moved(std::vector<uint8_t>&& input) {
 void Prepend::into_ref(std::vector<uint8_t>& input) {
   input.insert(input.begin(), _bytes.begin(), _bytes.end());
 }
+
+immer::flex_vector<uint8_t>
+Prepend::into_flex(const immer::flex_vector<uint8_t>& input) {
+  return input.insert(0, _flex_bytes);
+}

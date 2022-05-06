@@ -48,3 +48,16 @@ void Join::into_ref(std::vector<uint8_t>& input) {
     _buffer.clear();
   }
 }
+
+immer::flex_vector<uint8_t>
+Join::into_flex(const immer::flex_vector<uint8_t>& input) {
+  if (++_current == _slice_count) {
+    _current = 0;
+    auto joined = _flex_buffer.insert(_flex_buffer.size(), input);
+    _flex_buffer = {};
+    return joined;
+  } else {
+    _flex_buffer = _flex_buffer.insert(_flex_buffer.size(), input);
+    return {};
+  }
+}

@@ -39,6 +39,11 @@ needed because it lets the pipeline as a whole reuse buffers as needed. The
 downside is that it may complicate the code to deal with ownership transfer
 and/or make sure unnecessary copies are avoided.
 
+#### Flex vector
+
+Is a copy-on-write tree-like virtual vector. See
+[immer](https://github.com/arximboldi/immer) for details.
+
 ### Benchmark results
 ```
 $ ./build_and_run.sh
@@ -85,6 +90,8 @@ $ ./build_and_run.sh
 1.603 cpp_Os/bench_input_prepend_copy
 3.906 cpp_O3/bench_pipeline_copy
 4.330 cpp_Os/bench_pipeline_copy
+61.286 cpp_O3/bench_pipeline_flex_vector
+87.719 cpp_Os/bench_pipeline_flex_vector
 ```
 The benchmark ran on a DELL XPS 13 (9350) laptop using one Intel(R) Core(TM)
 i7-6500U CPU @ 2.50GHz core and 1866MHz DDR3 RAM.
