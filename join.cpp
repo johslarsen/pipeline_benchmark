@@ -46,5 +46,7 @@ void Join::into_ref(std::vector<uint8_t>& input) {
     _current = 0;
     std::swap(_buffer, input);
     _buffer.clear();
+  } else {
+    input.clear();
   }
 }
