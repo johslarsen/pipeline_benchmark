@@ -42,11 +42,9 @@ Join::into_moved(std::vector<uint8_t>&& input) {
 
 void Join::into_ref(std::vector<uint8_t>& input) {
   _buffer.insert(_buffer.end(), input.begin(), input.end());
+  input.clear();
   if (++_current == _slice_count) {
     _current = 0;
     std::swap(_buffer, input);
-    _buffer.clear();
-  } else {
-    input.clear();
   }
 }
