@@ -10,8 +10,11 @@ Prepend::into_static(const std::span<uint8_t>& input) {
 
 std::vector<uint8_t>
 Prepend::into_copy(const std::vector<uint8_t>& input) {
-  std::vector<uint8_t> copy(input);
+  std::vector<uint8_t> copy;
+  copy.reserve(_bytes.size() + input.size());
+
   copy.insert(copy.begin(), _bytes.begin(), _bytes.end());
+  copy.insert(copy.begin(), input.begin(), input.end());
   return copy;
 }
 

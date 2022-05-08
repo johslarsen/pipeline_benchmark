@@ -19,7 +19,9 @@ Join::into_copy(const std::vector<uint8_t>& input) {
   _buffer.insert(_buffer.end(), input.begin(), input.end());
   if (++_current == _slice_count) {
     _current = 0;
-    return std::move(_buffer);
+    auto output = std::move(_buffer);
+    _buffer.reserve(_slice_count * input.size());
+    return output;
   } else {
     return {};
   }

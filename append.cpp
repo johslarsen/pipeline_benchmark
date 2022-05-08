@@ -10,9 +10,11 @@ Append::into_static(const std::span<uint8_t>& input) {
 
 std::vector<uint8_t>
 Append::into_copy(const std::vector<uint8_t>& input) {
-  std::vector<uint8_t> copy(input);
-  copy.insert(copy.end(), _bytes.begin(), _bytes.end());
-  return copy;
+  std::vector<uint8_t> output;
+  output.reserve(input.size() + _bytes.size());
+  output.insert(output.end(), input.begin(), input.end());
+  output.insert(output.end(), _bytes.begin(), _bytes.end());
+  return output;
 }
 
 std::vector<uint8_t>
