@@ -43,48 +43,50 @@ and/or make sure unnecessary copies are avoided.
 ```
 $ ./build_and_run.sh
 [...]
-0.019 cpp_O3/bench_input_only_static_raw
-0.022 cpp_Os/bench_input_only_static_raw
-0.175 cpp_O3/bench_input_only_static
-0.185 cpp_O3/bench_input_only_moved
-0.191 cpp_O3/bench_input_only_ref
-0.271 cpp_O3/bench_input_append_ref
-0.320 cpp_Os/bench_input_only_static
-0.331 cpp_O3/bench_input_only_copy
-0.331 cpp_Os/bench_input_only_moved
-0.337 cpp_Os/bench_input_only_ref
-0.359 cpp_O3/bench_input_append_moved
-0.389 cpp_O3/bench_input_append_static
-0.395 cpp_O3/bench_input_join_static
-0.403 cpp_O3/bench_input_prepend_ref
-0.428 cpp_Os/bench_input_append_ref
-0.434 cpp_O3/bench_input_prepend_static
-0.474 cpp_Os/bench_input_only_copy
-0.503 cpp_O3/bench_input_join_ref
-0.568 cpp_Os/bench_input_prepend_ref
-0.578 cpp_O3/bench_input_prepend_moved
-0.581 cpp_Os/bench_input_join_static
-0.605 cpp_Os/bench_input_append_moved
-0.662 cpp_Os/bench_input_prepend_static
-0.694 cpp_Os/bench_input_prepend_moved
-0.738 cpp_Os/bench_input_append_static
-0.753 cpp_Os/bench_input_join_ref
-0.806 cpp_O3/bench_input_join_moved
-0.867 cpp_O3/bench_pipeline_ref
-0.971 cpp_Os/bench_input_join_moved
-0.995 cpp_O3/bench_pipeline_static
-1.132 cpp_Os/bench_pipeline_ref
-1.185 cpp_O3/bench_input_join_copy
-1.323 cpp_O3/bench_pipeline_moved
-1.383 cpp_Os/bench_input_join_copy
-1.402 cpp_O3/bench_input_append_copy
-1.418 cpp_O3/bench_input_prepend_copy
-1.431 cpp_Os/bench_pipeline_static
-1.595 cpp_Os/bench_input_append_copy
-1.598 cpp_Os/bench_pipeline_moved
-1.603 cpp_Os/bench_input_prepend_copy
-3.906 cpp_O3/bench_pipeline_copy
-4.330 cpp_Os/bench_pipeline_copy
+0.018 OK cpp_O3/bench_input_only_static_raw
+0.022 OK cpp_Os/bench_input_only_static_raw
+0.175 OK cpp_O3/bench_input_only_static
+0.181 OK cpp_O3/bench_input_only_ref
+0.231 OK cpp_O3/bench_input_append_ref
+0.250 OK cpp_O3/bench_input_only_moved
+0.316 OK cpp_Os/bench_input_only_moved
+0.329 OK cpp_O3/bench_input_only_copy
+0.350 OK cpp_Os/bench_input_only_static
+0.367 OK cpp_O3/bench_input_append_moved
+0.393 OK cpp_O3/bench_input_prepend_ref
+0.396 OK cpp_O3/bench_input_join_static
+0.430 OK cpp_O3/bench_input_append_static
+0.431 OK cpp_O3/bench_input_prepend_static
+0.443 OK cpp_Os/bench_input_append_ref
+0.457 OK cpp_Os/bench_input_only_ref
+0.491 OK cpp_Os/bench_input_only_copy
+0.523 OK cpp_Os/bench_input_append_moved
+0.560 OK cpp_O3/bench_input_prepend_moved
+0.564 OK cpp_Os/bench_input_join_static
+0.586 OK cpp_Os/bench_input_prepend_ref
+0.653 OK cpp_Os/bench_input_append_static
+0.679 OK cpp_Os/bench_input_prepend_moved
+0.708 OK cpp_O3/bench_input_join_ref
+0.734 OK cpp_O3/bench_input_join_moved
+0.745 OK cpp_Os/bench_input_prepend_static
+1.004 OK cpp_O3/bench_pipeline_static
+1.013 OK cpp_Os/bench_input_join_moved
+1.020 OK cpp_Os/bench_input_join_ref
+1.033 OK cpp_O3/bench_pipeline_ref
+1.046 OK cpp_O3/bench_input_join_copy
+1.160 OK rust/target/release/bench_pipeline_moved
+1.230 OK cpp_O3/bench_pipeline_moved
+1.406 OK cpp_O3/bench_input_append_copy
+1.410 OK cpp_O3/bench_input_prepend_copy
+1.478 OK cpp_Os/bench_input_join_copy
+1.481 OK cpp_Os/bench_pipeline_static
+1.487 OK cpp_Os/bench_pipeline_ref
+1.504 OK cpp_Os/bench_pipeline_moved
+1.577 OK cpp_Os/bench_input_prepend_copy
+1.618 OK cpp_Os/bench_input_append_copy
+2.902 OK rust/target/release/bench_pipeline_copy
+3.838 OK cpp_O3/bench_pipeline_copy
+4.273 OK cpp_Os/bench_pipeline_copy
 ```
 The benchmark ran on a DELL XPS 13 (9350) laptop using one Intel(R) Core(TM)
 i7-6500U CPU @ 2.50GHz core and 1866MHz DDR3 RAM.
