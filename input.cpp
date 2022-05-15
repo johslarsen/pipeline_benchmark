@@ -18,6 +18,12 @@ Input::into_copy(uint8_t filler) {
   return std::vector<uint8_t>(_buffer.size(), filler);
 }
 
+malloc_span Input::into_malloc(uint8_t filler) {
+  auto output = make_span_malloc(_buffer.size());
+  std::memset(output.first.get(), filler, _buffer.size());
+  return output;
+}
+
 std::vector<uint8_t>
 Input::into_moved(uint8_t filler, std::vector<uint8_t>&& buffer) {
   buffer.resize(_buffer.size());

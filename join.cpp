@@ -1,5 +1,7 @@
 #include "join.hpp"
 
+#include <cstring>
+
 std::span<uint8_t>
 Join::into_static(const std::span<uint8_t>& input) {
   if (_current == _slice_count) {
@@ -24,6 +26,23 @@ Join::into_copy(const std::vector<uint8_t>& input) {
     return output;
   } else {
     return {};
+  }
+}
+
+malloc_span
+Join::into_malloc(const malloc_span& input) {
+  if (_malloc.first == nullptr) {
+    _malloc = make_span_malloc(_slice_count * input.second);
+  }
+  std::memcpy(_malloc.first.get() + _offset, input.first.get(), input.second);
+  _offset += input.second;
+
+  if (++_current == _slice_count) {
+    _current = 0;
+    _offset = 0;
+    return std::move(_malloc);
+  } else {
+    return empty_malloc_span();
   }
 }
 

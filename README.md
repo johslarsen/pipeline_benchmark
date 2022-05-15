@@ -28,6 +28,10 @@ Reallocation of recently freed memory is not that expensive anyways, so for
 most applications were the focus is not on performance it is usually good
 enough.
 
+##### By malloc
+
+Same as copy, just using the C primitives instead.
+
 #### By move
 
 I.e. every processing stage gets ownership of its input and transfers ownership
@@ -43,69 +47,71 @@ and/or make sure unnecessary copies are avoided.
 ```
 $ ./build_and_run.sh
 [...]
-0.018 OK cpp_O3/bench_input_only_static_raw
 0.021 OK rust/target/release/bench_input_only_static_raw
+0.022 OK cpp_O3/bench_input_only_static_raw
 0.022 OK cpp_Os/bench_input_only_static_raw
-0.160 OK rust/target/release/bench_input_only_ref
+0.159 OK rust/target/release/bench_input_only_ref
 0.167 OK rust/target/release/bench_input_only_static
-0.175 OK cpp_O3/bench_input_only_ref
-0.175 OK cpp_O3/bench_input_only_static
-0.183 OK cpp_O3/bench_input_only_moved
-0.195 OK rust/target/release/bench_input_only_moved
-0.224 OK cpp_O3/bench_input_append_ref
-0.231 OK rust/target/release/bench_input_append_ref
-0.275 OK rust/target/release/bench_input_append_moved
-0.315 OK cpp_Os/bench_input_only_moved
+0.177 OK cpp_O3/bench_input_only_static
+0.185 OK cpp_O3/bench_input_only_moved
+0.191 OK cpp_O3/bench_input_only_ref
+0.225 OK cpp_O3/bench_input_append_ref
+0.232 OK rust/target/release/bench_input_append_ref
+0.246 OK rust/target/release/bench_input_only_moved
+0.314 OK cpp_Os/bench_input_only_moved
 0.320 OK cpp_Os/bench_input_only_static
-0.320 OK rust/target/release/bench_input_only_copy
+0.331 OK cpp_O3/bench_input_only_copy
 0.347 OK cpp_Os/bench_input_only_ref
-0.364 OK cpp_O3/bench_input_append_moved
-0.370 OK cpp_O3/bench_input_only_copy
-0.384 OK rust/target/release/bench_input_join_static
-0.385 OK cpp_O3/bench_input_prepend_ref
-0.402 OK cpp_O3/bench_input_join_static
-0.420 OK rust/target/release/bench_input_prepend_static
-0.435 OK rust/target/release/bench_input_prepend_ref
-0.439 OK cpp_O3/bench_input_prepend_static
-0.449 OK cpp_Os/bench_input_append_ref
-0.461 OK rust/target/release/bench_input_append_static
-0.484 OK cpp_O3/bench_input_append_static
-0.525 OK cpp_Os/bench_input_append_moved
-0.532 OK cpp_Os/bench_input_only_copy
-0.542 OK rust/target/release/bench_input_prepend_moved
-0.559 OK cpp_O3/bench_input_prepend_moved
-0.566 OK cpp_Os/bench_input_prepend_ref
-0.647 OK cpp_Os/bench_input_join_static
-0.678 OK rust/target/release/bench_input_join_ref
-0.690 OK cpp_Os/bench_input_append_static
-0.717 OK cpp_O3/bench_input_join_ref
-0.720 OK cpp_O3/bench_input_join_moved
-0.734 OK cpp_Os/bench_input_prepend_static
-0.737 OK rust/target/release/bench_input_join_moved
-0.739 OK cpp_Os/bench_input_prepend_moved
-0.761 OK cpp_O3/bench_input_join_copy
-0.779 OK rust/target/release/bench_input_join_copy
-0.896 OK rust/target/release/bench_input_prepend_copy
-0.898 OK cpp_O3/bench_input_append_copy
-0.942 OK cpp_O3/bench_input_prepend_copy
-0.946 OK cpp_O3/bench_pipeline_static
-0.950 OK rust/target/release/bench_pipeline_static
-1.012 OK cpp_Os/bench_input_join_ref
-1.051 OK rust/target/release/bench_pipeline_ref
-1.062 OK cpp_O3/bench_pipeline_ref
-1.095 OK cpp_Os/bench_input_append_copy
-1.098 OK rust/target/release/bench_input_append_copy
-1.105 OK cpp_Os/bench_input_join_moved
-1.114 OK cpp_Os/bench_input_join_copy
-1.138 OK rust/target/release/bench_pipeline_moved
-1.180 OK cpp_Os/bench_input_prepend_copy
-1.293 OK cpp_O3/bench_pipeline_moved
-1.417 OK cpp_Os/bench_pipeline_ref
-1.508 OK cpp_Os/bench_pipeline_moved
-1.621 OK cpp_Os/bench_pipeline_static
-1.719 OK cpp_O3/bench_pipeline_copy
-1.770 OK rust/target/release/bench_pipeline_copy
-2.409 OK cpp_Os/bench_pipeline_copy
+0.350 OK rust/target/release/bench_input_only_copy
+0.371 OK cpp_O3/bench_input_append_moved
+0.373 OK rust/target/release/bench_input_append_moved
+0.388 OK cpp_O3/bench_input_append_static
+0.400 OK cpp_O3/bench_input_prepend_ref
+0.406 OK rust/target/release/bench_input_prepend_static
+0.409 OK rust/target/release/bench_input_join_static
+0.419 OK rust/target/release/bench_input_append_static
+0.424 OK cpp_O3/bench_input_join_static
+0.426 OK cpp_Os/bench_input_append_ref
+0.445 OK cpp_O3/bench_input_prepend_static
+0.514 OK rust/target/release/bench_input_prepend_ref
+0.544 OK rust/target/release/bench_input_prepend_moved
+0.570 OK cpp_Os/bench_input_only_copy
+0.585 OK cpp_O3/bench_input_prepend_moved
+0.599 OK cpp_Os/bench_input_prepend_ref
+0.605 OK cpp_Os/bench_input_join_static
+0.610 OK cpp_Os/bench_input_append_moved
+0.650 OK rust/target/release/bench_input_join_ref
+0.660 OK cpp_Os/bench_input_prepend_static
+0.695 OK cpp_O3/bench_input_join_ref
+0.700 OK rust/target/release/bench_input_join_moved
+0.725 OK cpp_O3/bench_input_join_moved
+0.743 OK cpp_Os/bench_input_prepend_moved
+0.779 OK cpp_O3/bench_input_join_copy
+0.802 OK rust/target/release/bench_input_prepend_copy
+0.811 OK cpp_Os/bench_input_append_static
+0.843 OK cpp_O3/bench_input_append_copy
+0.869 OK rust/target/release/bench_input_join_copy
+0.899 OK rust/target/release/bench_input_append_copy
+0.954 OK rust/target/release/bench_pipeline_static
+0.984 OK cpp_Os/bench_input_join_moved
+1.003 OK cpp_Os/bench_input_join_ref
+1.023 OK cpp_O3/bench_input_prepend_copy
+1.023 OK cpp_O3/bench_pipeline_static
+1.047 OK cpp_Os/bench_input_join_copy
+1.052 OK cpp_O3/bench_pipeline_ref
+1.059 OK rust/target/release/bench_pipeline_ref
+1.136 OK rust/target/release/bench_pipeline_moved
+1.172 OK cpp_Os/bench_input_prepend_copy
+1.186 OK cpp_Os/bench_input_append_copy
+1.237 OK cpp_O3/bench_pipeline_moved
+1.414 OK cpp_Os/bench_pipeline_ref
+1.505 OK cpp_Os/bench_pipeline_static
+1.514 OK cpp_O3/bench_pipeline_malloc
+1.562 OK cpp_Os/bench_pipeline_moved
+1.779 OK cpp_O3/bench_pipeline_copy
+1.785 OK rust/target/release/bench_pipeline_copy
+2.117 OK cpp_Os/bench_pipeline_malloc
+2.464 OK cpp_Os/bench_pipeline_copy
 ```
 The benchmark ran on a DELL XPS 13 (9350) laptop using one Intel(R) Core(TM)
 i7-6500U CPU @ 2.50GHz core and 1866MHz DDR3 RAM.
