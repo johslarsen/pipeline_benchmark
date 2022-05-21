@@ -15,11 +15,12 @@ struct Args {
         split(env_or_die("RECORD_SIZE")),
         std::stoul(env_or_die("SLICE_COUNT")),
     };
-    if (args.record_size.empty()) {
-      std::cerr << "RECORD_SIZE must be a non-empty CSV list" << std::endl;
+    auto nsize = args.record_size.size();
+    if (nsize == 0 || (nsize&(nsize-1)) != 0) {
+      std::cerr << "RECORD_SIZE must be a power-of-2 sized CSV list" << std::endl;
       std::exit(1);
     }
-    if (args.slice_count % args.record_size.size() != 0) {
+    if (args.slice_count % nsize != 0) {
       std::cerr << "Number of RECORD_SIZEs must divide SLICE_COUNT" << std::endl;
       std::exit(1);
     }

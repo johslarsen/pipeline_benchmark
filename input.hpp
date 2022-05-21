@@ -6,7 +6,8 @@
 
 class Input {
  public:
-  Input(std::vector<size_t> buffer_sizes) : _sizes(std::move(buffer_sizes)) {
+  Input(std::vector<size_t> buffer_sizes) : _sizes(std::move(buffer_sizes)),
+                                            _size_mask(_sizes.size() - 1) {
     _buffer.reserve(*std::max_element(_sizes.begin(), _sizes.end()));
   }
 
@@ -19,5 +20,6 @@ class Input {
 
  private:
   std::vector<size_t> _sizes;
+  size_t _size_mask;
   std::vector<uint8_t> _buffer;
 };

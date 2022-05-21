@@ -15,8 +15,9 @@ impl Args {
             record_size: Args::split(&std::env::var("RECORD_SIZE")?)?,
             slice_count: usize::from_str(&std::env::var("SLICE_COUNT")?)?,
         };
-        if args.record_size.is_empty() {
-            return Err("RECORD_SIZE must be a non-empty CSV list")?;
+        let nsize = args.record_size.len();
+        if nsize == 0 || (nsize & (nsize - 1)) != 0 {
+            return Err("RECORD_SIZE must be a power-of-2 sized CSV list")?;
         } else if args.slice_count % args.record_size.len() != 0 {
             return Err("Number of RECORD_SIZEs must divide SLICE_COUNT")?;
         }
@@ -38,42 +39,45 @@ impl Args {
 
 pub struct Input {
     sizes: Vec<usize>,
+    size_mask: usize,
     buffer: Vec<u8>,
 }
 impl Input {
     pub fn new(buffer_size: Vec<usize>) -> Input {
         let max_size = *buffer_size.iter().max().unwrap();
+        let size_mask = buffer_size.len() - 1;
         Input {
             sizes: buffer_size,
+            size_mask,
             buffer: vec![0; max_size],
         }
     }
 
     pub fn raw_static(&mut self, filler: u8) -> &[u8] {
         self.buffer
-            .resize(self.sizes[(filler as usize) % self.sizes.len()], filler);
+            .resize(self.sizes[(filler as usize) & self.size_mask], filler);
         &self.buffer
     }
 
     pub fn into_static(&mut self, filler: u8) -> &[u8] {
         self.buffer
-            .resize(self.sizes[(filler as usize) % self.sizes.len()], filler);
+            .resize(self.sizes[(filler as usize) & self.size_mask], filler);
         self.buffer.fill(filler);
         &self.buffer
     }
 
     pub fn into_copy(&self, filler: u8) -> Vec<u8> {
-        return vec![filler; self.sizes[(filler as usize) % self.sizes.len()]];
+        return vec![filler; self.sizes[(filler as usize) & self.size_mask]];
     }
 
     pub fn into_moved(&self, filler: u8, mut buffer: Vec<u8>) -> Vec<u8> {
-        buffer.resize(self.sizes[(filler as usize) % self.sizes.len()], filler);
+        buffer.resize(self.sizes[(filler as usize) & self.size_mask], filler);
         buffer.fill(filler);
         buffer
     }
 
     pub fn into_ref(&self, filler: u8, buffer: &mut Vec<u8>) {
-        buffer.resize(self.sizes[(filler as usize) % self.sizes.len()], filler);
+        buffer.resize(self.sizes[(filler as usize) & self.size_mask], filler);
         buffer.fill(filler);
     }
 }
