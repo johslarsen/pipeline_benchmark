@@ -10,5 +10,5 @@ int main() {
   for (size_t i = 0; i < args.iterations; i++) {
     last = append.into_moved(input.into_moved(i, std::move(last)));
   }
-  return last.size() != args.record_size + 3;
+  return last.size() != args.record_size.back() + 3;
 }

@@ -43,69 +43,94 @@ and/or make sure unnecessary copies are avoided.
 ```
 $ ./build_and_run.sh
 [...]
-0.018 OK cpp_O3/bench_input_only_static_raw
-0.021 OK rust/target/release/bench_input_only_static_raw
-0.022 OK cpp_Os/bench_input_only_static_raw
-0.160 OK rust/target/release/bench_input_only_ref
-0.167 OK rust/target/release/bench_input_only_static
-0.175 OK cpp_O3/bench_input_only_ref
-0.175 OK cpp_O3/bench_input_only_static
-0.183 OK cpp_O3/bench_input_only_moved
-0.195 OK rust/target/release/bench_input_only_moved
-0.224 OK cpp_O3/bench_input_append_ref
-0.231 OK rust/target/release/bench_input_append_ref
-0.275 OK rust/target/release/bench_input_append_moved
-0.315 OK cpp_Os/bench_input_only_moved
-0.320 OK cpp_Os/bench_input_only_static
-0.320 OK rust/target/release/bench_input_only_copy
-0.347 OK cpp_Os/bench_input_only_ref
-0.364 OK cpp_O3/bench_input_append_moved
-0.370 OK cpp_O3/bench_input_only_copy
-0.384 OK rust/target/release/bench_input_join_static
-0.385 OK cpp_O3/bench_input_prepend_ref
-0.402 OK cpp_O3/bench_input_join_static
-0.420 OK rust/target/release/bench_input_prepend_static
-0.435 OK rust/target/release/bench_input_prepend_ref
-0.439 OK cpp_O3/bench_input_prepend_static
-0.449 OK cpp_Os/bench_input_append_ref
-0.461 OK rust/target/release/bench_input_append_static
-0.484 OK cpp_O3/bench_input_append_static
-0.525 OK cpp_Os/bench_input_append_moved
-0.532 OK cpp_Os/bench_input_only_copy
-0.542 OK rust/target/release/bench_input_prepend_moved
-0.559 OK cpp_O3/bench_input_prepend_moved
-0.566 OK cpp_Os/bench_input_prepend_ref
-0.647 OK cpp_Os/bench_input_join_static
-0.678 OK rust/target/release/bench_input_join_ref
-0.690 OK cpp_Os/bench_input_append_static
-0.717 OK cpp_O3/bench_input_join_ref
-0.720 OK cpp_O3/bench_input_join_moved
-0.734 OK cpp_Os/bench_input_prepend_static
-0.737 OK rust/target/release/bench_input_join_moved
-0.739 OK cpp_Os/bench_input_prepend_moved
-0.761 OK cpp_O3/bench_input_join_copy
-0.779 OK rust/target/release/bench_input_join_copy
-0.896 OK rust/target/release/bench_input_prepend_copy
-0.898 OK cpp_O3/bench_input_append_copy
-0.942 OK cpp_O3/bench_input_prepend_copy
-0.946 OK cpp_O3/bench_pipeline_static
-0.950 OK rust/target/release/bench_pipeline_static
-1.012 OK cpp_Os/bench_input_join_ref
-1.051 OK rust/target/release/bench_pipeline_ref
-1.062 OK cpp_O3/bench_pipeline_ref
-1.095 OK cpp_Os/bench_input_append_copy
-1.098 OK rust/target/release/bench_input_append_copy
-1.105 OK cpp_Os/bench_input_join_moved
-1.114 OK cpp_Os/bench_input_join_copy
-1.138 OK rust/target/release/bench_pipeline_moved
-1.180 OK cpp_Os/bench_input_prepend_copy
-1.293 OK cpp_O3/bench_pipeline_moved
-1.417 OK cpp_Os/bench_pipeline_ref
-1.508 OK cpp_Os/bench_pipeline_moved
-1.621 OK cpp_Os/bench_pipeline_static
-1.719 OK cpp_O3/bench_pipeline_copy
-1.770 OK rust/target/release/bench_pipeline_copy
-2.409 OK cpp_Os/bench_pipeline_copy
+0.129 OK rust/target/release/bench_input_only_static_raw
+0.200 OK cpp_O3/bench_input_only_static_raw
+0.225 OK cpp_O3/bench_input_only_ref
+0.259 OK cpp_Os/bench_input_only_static_raw
+0.301 OK rust/target/release/bench_input_only_ref
+0.310 OK rust/target/release/bench_input_only_moved
+0.320 OK cpp_O3/bench_input_append_ref
+0.320 OK rust/target/release/bench_input_only_static
+0.357 OK rust/target/release/bench_input_append_ref
+0.382 OK rust/target/release/bench_input_append_moved
+0.393 OK cpp_O3/bench_input_only_moved
+0.405 OK cpp_O3/bench_input_only_static
+0.465 OK cpp_O3/bench_input_append_moved
+0.505 OK cpp_O3/bench_input_prepend_ref
+0.530 OK rust/target/release/bench_input_prepend_ref
+0.532 OK cpp_O3/bench_input_only_copy
+0.536 OK cpp_Os/bench_input_only_ref
+0.541 OK rust/target/release/bench_input_only_copy
+0.549 OK rust/target/release/bench_input_prepend_static
+0.562 OK rust/target/release/bench_input_join_static
+0.565 OK cpp_Os/bench_input_only_static
+0.622 OK cpp_O3/bench_input_join_ref
+0.622 OK rust/target/release/bench_input_append_static
+0.633 OK rust/target/release/bench_input_prepend_moved
+0.682 OK cpp_Os/bench_input_only_moved
+0.688 OK cpp_O3/bench_input_append_static
+0.706 OK cpp_O3/bench_input_join_static
+0.713 OK cpp_O3/bench_input_prepend_static
+0.722 OK cpp_O3/bench_input_prepend_moved
+0.725 OK cpp_Os/bench_input_only_copy
+0.732 OK rust/target/release/bench_input_join_ref
+0.743 OK cpp_Os/bench_input_append_ref
+0.775 OK cpp_O3/bench_input_join_moved
+0.794 OK rust/target/release/bench_input_join_moved
+0.843 OK cpp_Os/bench_input_append_moved
+0.891 OK cpp_Os/bench_input_prepend_ref
+0.914 OK cpp_Os/bench_input_join_static
+1.019 OK cpp_O3/bench_pipeline_ref
+1.024 OK cpp_Os/bench_input_prepend_static
+1.031 OK cpp_Os/bench_input_prepend_moved
+1.037 OK rust/target/release/bench_input_join_copy
+1.078 OK cpp_Os/bench_input_append_static
+1.080 OK rust/target/release/bench_pipeline_ref
+1.095 OK cpp_O3/bench_input_join_copy
+1.104 OK cpp_Os/bench_input_join_ref
+1.105 OK rust/target/release/bench_input_prepend_copy
+1.129 OK rust/target/release/bench_pipeline_static
+1.131 OK rust/target/release/bench_pipeline_moved
+1.159 OK rust/target/release/bench_input_append_copy
+1.168 OK cpp_O3/bench_input_append_copy
+1.184 OK cpp_Os/bench_input_join_moved
+1.292 OK cpp_O3/bench_input_prepend_copy
+1.318 OK cpp_O3/bench_pipeline_static
+1.345 OK cpp_O3/bench_pipeline_moved
+1.367 OK cpp_Os/bench_input_join_copy
+1.560 OK cpp_Os/bench_input_append_copy
+1.608 OK cpp_Os/bench_pipeline_ref
+1.688 OK cpp_Os/bench_input_prepend_copy
+1.798 OK cpp_Os/bench_pipeline_static
+1.846 OK cpp_Os/bench_pipeline_moved
+2.530 OK rust/target/release/bench_pipeline_copy
+2.586 OK cpp_O3/bench_pipeline_copy
+3.273 OK cpp_Os/bench_pipeline_copy
 ```
 The benchmark ran on a DELL XPS 13 (9350) laptop using one Intel(R) Core(TM)
 i7-6500U CPU @ 2.50GHz core and 1866MHz DDR3 RAM.
+
+#### Allocation pattern
+
+Reallocating same sized buffers over and over is less expensive than if
+allocation sizes varies, so the default run configuration uses a repeating
+record size pattern to emphasize the allocation cost. If allocation sizes are
+more static the copy method performance is even closer to the other methods:
+```
+$ RECORD_SIZE=1024 ./run.sh cpp_O*/bench*copy rust/target/release/bench*copy | sort
+0.477 OK rust/target/release/bench_input_only_copy
+0.488 OK cpp_O3/bench_input_only_copy
+0.692 OK cpp_Os/bench_input_only_copy
+0.866 OK rust/target/release/bench_input_join_copy
+0.912 OK rust/target/release/bench_input_prepend_copy
+0.939 OK rust/target/release/bench_input_append_copy
+0.961 OK cpp_O3/bench_input_join_copy
+1.117 OK cpp_O3/bench_input_prepend_copy
+1.136 OK cpp_Os/bench_input_join_copy
+1.235 OK cpp_O3/bench_input_append_copy
+1.312 OK cpp_Os/bench_input_append_copy
+1.361 OK cpp_Os/bench_input_prepend_copy
+1.827 OK rust/target/release/bench_pipeline_copy
+1.874 OK cpp_O3/bench_pipeline_copy
+2.629 OK cpp_Os/bench_pipeline_copy
+```

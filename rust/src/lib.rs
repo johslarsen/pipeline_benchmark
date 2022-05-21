@@ -1,51 +1,79 @@
+use std::str::FromStr;
 pub struct Args {
     pub iterations: usize,
-    pub record_size: usize,
+    pub record_size: Vec<usize>,
     pub slice_count: usize,
 }
 impl Args {
+    fn split(csv: &str) -> Result<Vec<usize>, std::num::ParseIntError> {
+        csv.split(",").map(|n| usize::from_str(&n)).collect()
+    }
+
     pub fn from_env() -> Result<Args, Box<dyn std::error::Error>> {
-        use std::str::FromStr;
-        Ok(Args {
+        let args = Args {
             iterations: usize::from_str(&std::env::var("ITERATIONS")?)?,
-            record_size: usize::from_str(&std::env::var("RECORD_SIZE")?)?,
+            record_size: Args::split(&std::env::var("RECORD_SIZE")?)?,
             slice_count: usize::from_str(&std::env::var("SLICE_COUNT")?)?,
-        })
+        };
+        if args.record_size.is_empty() {
+            return Err("RECORD_SIZE must be a non-empty CSV list")?;
+        } else if args.slice_count % args.record_size.len() != 0 {
+            return Err("Number of RECORD_SIZEs must divide SLICE_COUNT")?;
+        }
+        Ok(args)
+    }
+
+    pub fn record_size_total(&self) -> usize {
+        self.record_size.iter().sum()
+    }
+
+    pub fn record_size_last(&self) -> usize {
+        self.record_size.last().cloned().unwrap_or(0)
+    }
+
+    pub fn joined_total(&self) -> usize {
+        self.slice_count * self.record_size_total() / self.record_size.len()
     }
 }
 
 pub struct Input {
+    sizes: Vec<usize>,
     buffer: Vec<u8>,
 }
 impl Input {
-    pub fn new(buffer_size: usize) -> Input {
+    pub fn new(buffer_size: Vec<usize>) -> Input {
+        let max_size = *buffer_size.iter().max().unwrap();
         Input {
-            buffer: vec![0; buffer_size],
+            sizes: buffer_size,
+            buffer: vec![0; max_size],
         }
     }
 
-    pub fn raw_static(&mut self) -> &[u8] {
+    pub fn raw_static(&mut self, filler: u8) -> &[u8] {
+        self.buffer
+            .resize(self.sizes[(filler as usize) % self.sizes.len()], filler);
         &self.buffer
     }
 
     pub fn into_static(&mut self, filler: u8) -> &[u8] {
-        self.buffer.resize(self.buffer.len(), filler);
+        self.buffer
+            .resize(self.sizes[(filler as usize) % self.sizes.len()], filler);
         self.buffer.fill(filler);
         &self.buffer
     }
 
     pub fn into_copy(&self, filler: u8) -> Vec<u8> {
-        return vec![filler; self.buffer.len()];
+        return vec![filler; self.sizes[(filler as usize) % self.sizes.len()]];
     }
 
     pub fn into_moved(&self, filler: u8, mut buffer: Vec<u8>) -> Vec<u8> {
-        buffer.resize(self.buffer.len(), filler);
+        buffer.resize(self.sizes[(filler as usize) % self.sizes.len()], filler);
         buffer.fill(filler);
         buffer
     }
 
     pub fn into_ref(&self, filler: u8, buffer: &mut Vec<u8>) {
-        buffer.resize(self.buffer.len(), filler);
+        buffer.resize(self.sizes[(filler as usize) % self.sizes.len()], filler);
         buffer.fill(filler);
     }
 }

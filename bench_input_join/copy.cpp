@@ -12,5 +12,5 @@ int main() {
     last = join.into_copy(input.into_copy(i));
     if (last.size() > 0) last_size = last.size();
   }
-  return last_size != args.slice_count * (args.record_size);
+  return last_size != args.joined_total();
 }

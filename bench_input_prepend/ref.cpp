@@ -11,5 +11,5 @@ int main() {
     input.into_ref(i, last);
     prepend.into_ref(last);
   }
-  return last.size() != 3 + args.record_size;
+  return last.size() != 3 + args.record_size.back();
 }

@@ -2,6 +2,7 @@ use pipeline_benchmark::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::from_env()?;
+    let final_size = args.record_size_last() + 3;
     let input = Input::new(args.record_size);
     let append = Append::new("bar".as_bytes());
 
@@ -10,9 +11,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         input.into_ref(i as u8, &mut last);
         append.into_ref(&mut last);
     }
-    std::process::exit(if last.len() == args.record_size + 3 {
-        0
-    } else {
-        1
-    });
+    std::process::exit(if last.len() == final_size { 0 } else { 1 });
 }

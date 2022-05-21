@@ -10,5 +10,5 @@ int main() {
   for (size_t i = 0; i < args.iterations; i++) {
     last = prepend.into_copy(input.into_copy(i));
   }
-  return last.size() != 3 + args.record_size;
+  return last.size() != 3 + args.record_size.back();
 }

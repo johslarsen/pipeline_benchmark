@@ -12,5 +12,5 @@ int main() {
     last = join.into_moved(input.into_moved(i, std::move(last)));
     if (last.size() > 0) last_size = last.size();
   }
-  return last_size != args.slice_count * (args.record_size);
+  return last_size != args.joined_total();
 }

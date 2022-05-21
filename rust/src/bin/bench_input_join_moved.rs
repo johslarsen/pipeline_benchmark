@@ -2,6 +2,7 @@ use pipeline_benchmark::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::from_env()?;
+    let final_size = args.joined_total();
     let input = Input::new(args.record_size);
     let mut join = Join::new(args.slice_count);
 
@@ -13,9 +14,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             last_size = last.len();
         }
     }
-    std::process::exit(if last_size == args.slice_count * args.record_size {
-        0
-    } else {
-        1
-    });
+    std::process::exit(if last_size == final_size { 0 } else { 1 });
 }

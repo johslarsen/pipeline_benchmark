@@ -1,13 +1,16 @@
 #pragma once
+#include <algorithm>
 #include <cstdint>
 #include <span>
 #include <vector>
 
 class Input {
  public:
-  Input(size_t buffer_size) : _buffer(buffer_size) {}
+  Input(std::vector<size_t> buffer_sizes) : _sizes(std::move(buffer_sizes)) {
+    _buffer.reserve(*std::max_element(_sizes.begin(), _sizes.end()));
+  }
 
-  std::span<uint8_t> raw_static();
+  std::span<uint8_t> raw_static(uint8_t filler);
 
   std::span<uint8_t> into_static(uint8_t filler);
   std::vector<uint8_t> into_copy(uint8_t filler);
@@ -15,5 +18,6 @@ class Input {
   void into_ref(uint8_t filler, std::vector<uint8_t>& buffer);
 
  private:
+  std::vector<size_t> _sizes;
   std::vector<uint8_t> _buffer;
 };

@@ -8,5 +8,5 @@ int main() {
   for (size_t i = 0; i < args.iterations; i++) {
     input.into_ref(i, last);
   }
-  return last.size() != args.record_size;
+  return last.size() != args.record_size.back();
 }

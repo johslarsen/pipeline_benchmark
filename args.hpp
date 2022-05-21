@@ -1,18 +1,36 @@
 #pragma once
 #include <cstddef>
 #include <iostream>
+#include <numeric>
+#include <vector>
 
 struct Args {
   size_t iterations;
-  size_t record_size;
+  std::vector<size_t> record_size;
   size_t slice_count;
 
   static Args from_env() {
-    return {
+    Args args{
         std::stoul(env_or_die("ITERATIONS")),
-        std::stoul(env_or_die("RECORD_SIZE")),
+        split(env_or_die("RECORD_SIZE")),
         std::stoul(env_or_die("SLICE_COUNT")),
     };
+    if (args.record_size.empty()) {
+      std::cerr << "RECORD_SIZE must be a non-empty CSV list" << std::endl;
+      std::exit(1);
+    }
+    if (args.slice_count % args.record_size.size() != 0) {
+      std::cerr << "Number of RECORD_SIZEs must divide SLICE_COUNT" << std::endl;
+      std::exit(1);
+    }
+    return args;
+  }
+
+  size_t record_size_total() {
+    return std::reduce(record_size.begin(), record_size.end(), 0);
+  }
+  size_t joined_total() {
+    return slice_count * record_size_total() / record_size.size();
   }
 
  private:
@@ -22,5 +40,16 @@ struct Args {
     }
     std::cerr << "Missing environment " << name << std::endl;
     std::exit(1);
+  }
+
+  static std::vector<size_t> split(std::string_view csv) {
+    std::vector<size_t> numbers;
+    for (auto end = std::string::npos;
+         (end = csv.find(",")) != std::string::npos;
+         csv.remove_prefix(end + 1)) {
+      numbers.emplace_back(std::stoul(std::string(csv.substr(0, end))));
+    }
+    numbers.emplace_back(std::stoul(std::string(csv)));
+    return numbers;
   }
 };

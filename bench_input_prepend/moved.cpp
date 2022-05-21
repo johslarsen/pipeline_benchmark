@@ -10,5 +10,5 @@ int main() {
   for (size_t i = 0; i < args.iterations; i++) {
     last = prepend.into_moved(input.into_moved(i, std::move(last)));
   }
-  return last.size() != 3 + args.record_size;
+  return last.size() != 3 + args.record_size.back();
 }

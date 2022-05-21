@@ -16,5 +16,5 @@ int main() {
     last = join.into_static(prepend.into_static(append.into_static(input.into_static(i))));
     if (last.size() > 0) last_size = last.size();
   }
-  return last_size != args.slice_count * (3 + args.record_size + 3);
+  return last_size != args.joined_total() + args.slice_count * 2 * 3;
 }

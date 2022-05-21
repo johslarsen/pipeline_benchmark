@@ -2,6 +2,7 @@ use pipeline_benchmark::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Args::from_env()?;
+    let final_size = args.joined_total() + args.slice_count * 2 * 3;
     let input = Input::new(args.record_size);
     let append = Append::new("bar".as_bytes());
     let prepend = Prepend::new("bar".as_bytes());
@@ -14,11 +15,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             last_size = last.len();
         }
     }
-    std::process::exit(
-        if last_size == args.slice_count * (3 + args.record_size + 3) {
-            0
-        } else {
-            1
-        },
-    );
+    std::process::exit(if last_size == final_size { 0 } else { 1 });
 }
