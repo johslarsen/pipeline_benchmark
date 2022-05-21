@@ -4,6 +4,7 @@ project(pipeline_benchmark VERSION 0.1.0 LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_FLAGS "-march=native -mcpu=native -mtune=native")
 
 add_definitions(-Wall)
 
